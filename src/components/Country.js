@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 export default class PersonList extends React.Component {
-  state = {};
+  state = {country: "Germany"};
 
   handleChange = (event) => {
     this.setState({
@@ -20,7 +20,7 @@ export default class PersonList extends React.Component {
     
   }
   handleSubmit = (event) => {
-    if(!this.state.country=='Germany'){
+    if(this.state.country!=='Germany'){
        event.preventDefault();
     }
     
