@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import NumbersFormat from "../helpers"
+
 
 export default class PersonList extends React.Component {
   state = { country: "Germany" };
@@ -30,17 +32,9 @@ export default class PersonList extends React.Component {
     axios
       .get(`https://restcountries.eu/rest/v2/name/${user.country}`)
       .then((res) => {
-        let data = res.data;
+        let data = res.data[0];
         console.log(data);
-        let {
-          name,
-          capital,
-          population,
-          subregion,
-          timezones,
-          languages,
-          flag,
-        } = data[0];
+        let { name, capital, population, subregion, timezones, flag } = data;
         this.setState({
           name,
           capital,
@@ -48,14 +42,13 @@ export default class PersonList extends React.Component {
           subregion,
           timezones,
           languages: [
-            data[0].languages.map((n) => {
-              return n.name;
+            data.languages.map((n) => {
+              return <span>{n.name}, </span>;
             }),
           ],
           flag,
-          data: data[0],
-          curName: data[0].currencies[0].name,
-          curSymbol: data[0].currencies[0].symbol,
+          curName: data.currencies[0].name,
+          curSymbol: data.currencies[0].symbol,
         });
       });
   };
@@ -70,7 +63,7 @@ export default class PersonList extends React.Component {
               type="text"
               name="name"
               onChange={this.handleChange}
-              placeholder="Write a country"
+              placeholder="Write a country name"
             />
           </label>
           <button type="submit">Search</button>
@@ -85,15 +78,15 @@ export default class PersonList extends React.Component {
           {this.state.capital}
         </p>
         <p>
-          <strong>population: </strong>
-          {this.state.population}
+          <strong>population: </strong>{NumbersFormat(this.state.population)}
+          
         </p>
         <p>
           <strong>currency: </strong>
           {this.state.curName}({this.state.curSymbol})
         </p>
         <p>
-          <strong>language(s):</strong>
+          <strong>language(s): </strong>
           {this.state.languages}
         </p>
       </div>
