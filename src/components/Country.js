@@ -75,7 +75,7 @@ export default class PersonList extends React.Component {
         </form>
         <h2>{this.state.name}</h2>
         <img src={this.state.flag} alt={this.state.country} width="200px" />
-        <p>{this.state.subregion}</p>
+        <p><strong>Region: </strong>({this.state.subregion})</p>
         <p>
           <strong>Capital: </strong>
           {this.state.capital}
