@@ -3,22 +3,22 @@ import axios from "axios";
 
 export default class PersonList extends React.Component {
   state = {
-    name: "",
+    country: "",
   };
 
   handleChange = (event) => {
-    this.setState({ name: event.target.value });
+    this.setState({ country: event.target.value });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
 
     const user = {
-      name: this.state.name,
+      country: this.state.country,
     };
 
     axios
-      .get(`https://restcountries.eu/rest/v2/name/${user.name}`)
+      .get(`https://restcountries.eu/rest/v2/name/${user.country}`)
       .then((res) => {
         console.log(res);
         console.log(res.data);
