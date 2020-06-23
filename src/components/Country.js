@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 export default class PersonList extends React.Component {
-  state = {country: "Germany"};
+  state = { country: "Germany" };
 
   handleChange = (event) => {
     this.setState({
@@ -15,15 +15,13 @@ export default class PersonList extends React.Component {
       this.setState({
         country: "Germany",
       });
-       this.handleSubmit()
+      this.handleSubmit();
     }, 100);
-    
   }
   handleSubmit = (event) => {
-    if(this.state.country!=='Germany'){
-       event.preventDefault();
+    if (this.state.country !== "Germany") {
+      event.preventDefault();
     }
-    
 
     const user = {
       country: this.state.country,
@@ -39,7 +37,6 @@ export default class PersonList extends React.Component {
           capital,
           population,
           subregion,
-          currencies,
           timezones,
           languages,
           flag,
@@ -49,12 +46,17 @@ export default class PersonList extends React.Component {
           capital,
           population,
           subregion,
-          currencies,
           timezones,
-          languages,
+          languages: [
+            data[0].languages.map((n) => {
+              return n.name;
+            }),
+          ],
           flag,
+          data: data[0],
+          curName: data[0].currencies[0].name,
+          curSymbol: data[0].currencies[0].symbol,
         });
-        console.log(this.state);
       });
   };
 
@@ -75,7 +77,9 @@ export default class PersonList extends React.Component {
         </form>
         <h2>{this.state.name}</h2>
         <img src={this.state.flag} alt={this.state.country} width="200px" />
-        <p><strong>Region: </strong>({this.state.subregion})</p>
+        <p>
+          <strong>Region: </strong>({this.state.subregion})
+        </p>
         <p>
           <strong>Capital: </strong>
           {this.state.capital}
@@ -84,8 +88,14 @@ export default class PersonList extends React.Component {
           <strong>population: </strong>
           {this.state.population}
         </p>
-        {/* <strong>{this.state.currencies}</strong>
-        <strong>{this.state.languages}</strong> */}
+        <p>
+          <strong>currency: </strong>
+          {this.state.curName}({this.state.curSymbol})
+        </p>
+        <p>
+          <strong>language(s):</strong>
+          {this.state.languages}
+        </p>
       </div>
     );
   }
