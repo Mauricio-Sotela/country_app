@@ -1,7 +1,6 @@
 let  NumbersFormat=(number)=> {
   if (number) {
-    let numberStr=  number.toString();
-    return `${numberStr.slice(0,2)}.${numberStr.slice(2,5)}.${numberStr.slice(5)}`;
+    return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
   }
 }
 export default NumbersFormat
